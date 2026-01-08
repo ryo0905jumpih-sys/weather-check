@@ -4,69 +4,75 @@
   <meta charset="UTF-8">
   <title>気象条件チェック（内部用）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+                   "Yu Gothic", Meiryo, sans-serif;
       background: #f5f5f5;
       padding: 20px;
     }
+
     .card {
-      background: #ffffff;
-      padding: 24px;
-      border-radius: 10px;
-      max-width: 600px;
-      margin: auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    h1 {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-    .date {
-      color: #666;
-      margin-bottom: 20px;
-    }
-    .status {
-      font-size: 28px;
-      font-weight: bold;
-      text-align: center;
+      background: #fff;
       padding: 20px;
       border-radius: 8px;
-      background: #eee;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .none { background: #dff0d8; color: #2e7d32; }
-    .alert { background: #fff3cd; color: #856404; }
-    .warning { background: #f8d7da; color: #721c24; }
-    .note {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #555;
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      font-size: 26px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .none { color: #2c7be5; }
+    .warning { color: #f0ad4e; }
+    .alert { color: #d9534f; }
+
+    button {
+      margin-right: 10px;
+      margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
     }
   </style>
 </head>
+
 <body>
-
   <div class="card">
-    <h1>気象条件チェック（内部専用）</h1>
-    <div class="date" id="today"></div>
+    <h1>気象条件チェック（内部用）</h1>
+    <div id="status" class="status none">該当なし</div>
 
-    <!-- 表示結果 -->
-    <div class="status alert" id="result">
-      注意レベルに該当
-    </div>
-
-    <div class="note">
-      ※ 本ページは毎朝8時時点の気象庁データを基に確認する内部用画面です。
-    </div>
+    <button onclick="setStatus('none')">該当なし</button>
+    <button onclick="setStatus('warning')">注意レベル</button>
+    <button onclick="setStatus('alert')">警報レベル</button>
   </div>
 
   <script>
-    const today = new Date();
-    document.getElementById("today").textContent =
-      today.getFullYear() + "年" +
-      (today.getMonth() + 1) + "月" +
-      today.getDate() + "日";
-  </script>
+    function setStatus(level) {
+      const status = document.getElementById("status");
 
+      if (level === "none") {
+        status.textContent = "該当なし";
+        status.className = "status none";
+      }
+      if (level === "warning") {
+        status.textContent = "注意レベル";
+        status.className = "status warning";
+      }
+      if (level === "alert") {
+        status.textContent = "警報レベル";
+        status.className = "status alert";
+      }
+    }
+  </script>
 </body>
 </html>
